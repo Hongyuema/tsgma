@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite this software and record the release or commit used."
+type: software
+title: "TSGMA research code"
+authors:
+  - family-names: Ma
+    given-names: Hongyue
+version: 1.0.0
+license: MIT
+abstract: >-
+  Research code for Three-star Global Macro Association analysis, combining
+  country-mean correlations, adjusted correlations and quantitative temporal
+  models. Includes eligibility reconstruction, multiplicity-controlled grading,
+  sensitivity analyses, simulations and numerical verification.
+repository-code: "https://github.com/Hongyuema/tsgma"
+url: "https://github.com/Hongyuema/tsgma"

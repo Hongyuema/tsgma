@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+.matplotlib/
+data/
+rebuild/
+*.log
+*.zip

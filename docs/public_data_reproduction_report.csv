@@ -1,0 +1,121 @@
+file,comparison
+results/VIF.csv,byte-identical
+results/all_associations.csv,byte-identical
+results/analysis_snapshot.csv,byte-identical
+results/countries_and_missingness.csv,byte-identical
+results/crude_and_GDP_96_tests.csv,byte-identical
+results/discovery_counts.csv,byte-identical
+results/influential_countries.csv,byte-identical
+results/leave_one_country_out.csv,byte-identical
+results/leave_one_region_out.csv,byte-identical
+results/logit_prevalence_sensitivity.csv,byte-identical
+results/missingness_summary.csv,byte-identical
+results/model_summary.csv,byte-identical
+results/multivariable_OLS_and_HC3.csv,byte-identical
+results/nonlinearity_HC3_spline_tests.csv,byte-identical
+results/original_eight_headline_pairs.csv,byte-identical
+results/variable_distributions.csv,byte-identical
+results/analysis_metadata.json,identical metadata
+annual_results/annual_models.csv,byte-identical
+annual_results/annual_panel_1992_2017.csv,byte-identical
+annual_results/cereal_definition_comparison.csv,byte-identical
+annual_results/common_1992_2014_coverage.csv,byte-identical
+annual_results/common_1992_2014_means.csv,byte-identical
+annual_results/cross_sectional_discovery_counts.csv,byte-identical
+annual_results/energy_and_cereal_audit.csv,byte-identical
+annual_results/full_1992_2017_coverage.csv,byte-identical
+annual_results/full_1992_2017_means.csv,byte-identical
+annual_results/pair_specific_eligibility.csv,byte-identical
+annual_results/panel_discovery_counts.csv,byte-identical
+annual_results/prebreak_1992_2009_coverage.csv,byte-identical
+annual_results/prebreak_1992_2009_means.csv,byte-identical
+annual_results/reconstructed_cross_sectional.csv,byte-identical
+annual_results/source_item_mapping.csv,byte-identical
+annual_results/reconstruction_metadata.json,identical metadata
+outcome_audit/changed_annual_cells.csv,byte-identical
+outcome_audit/corrected_snapshot.csv,byte-identical
+outcome_audit/correlation_versions.csv,numerically equivalent
+outcome_audit/country_mean_comparison.csv,byte-identical
+outcome_audit/historical_food_source_check.csv,numerically equivalent
+outcome_audit/historical_roster.csv,byte-identical
+corrected_results/VIF.csv,byte-identical
+corrected_results/all_associations.csv,byte-identical
+corrected_results/analysis_snapshot.csv,byte-identical
+corrected_results/countries_and_missingness.csv,byte-identical
+corrected_results/crude_and_GDP_96_tests.csv,byte-identical
+corrected_results/discovery_counts.csv,byte-identical
+corrected_results/influential_countries.csv,byte-identical
+corrected_results/leave_one_country_out.csv,byte-identical
+corrected_results/leave_one_region_out.csv,byte-identical
+corrected_results/logit_prevalence_sensitivity.csv,byte-identical
+corrected_results/missingness_summary.csv,byte-identical
+corrected_results/model_summary.csv,byte-identical
+corrected_results/multivariable_OLS_and_HC3.csv,byte-identical
+corrected_results/nonlinearity_HC3_spline_tests.csv,byte-identical
+corrected_results/original_eight_headline_pairs.csv,byte-identical
+corrected_results/variable_distributions.csv,byte-identical
+corrected_results/analysis_metadata.json,identical metadata
+diagnostics/annual_exposure_scales.csv,byte-identical
+diagnostics/annual_residual_by_country.csv,byte-identical
+diagnostics/annual_residual_dependence.csv,byte-identical
+diagnostics/common_window_diagnostics.csv,byte-identical
+diagnostics/common_window_influence.csv,byte-identical
+diagnostics/common_window_omission_summary.csv,byte-identical
+diagnostics/common_window_omissions.csv,byte-identical
+diagnostics/diagnostic_discovery_counts.csv,byte-identical
+diagnostics/exposure_scales.csv,byte-identical
+diagnostics/region_year_effects.csv,byte-identical
+diagnostics/diagnostics_metadata.json,identical metadata
+food_results/collinearity.csv,byte-identical
+food_results/common_sample.csv,byte-identical
+food_results/dietary_slopes.csv,byte-identical
+food_results/joint_omissions.csv,byte-identical
+food_results/prevalence_scales.csv,byte-identical
+food_results/spline_tests.csv,byte-identical
+comparison/first_difference_year_omissions.csv,byte-identical
+comparison/paired_slope_contrasts.csv,byte-identical
+comparison/paired_slope_country_omissions.csv,byte-identical
+comparison/scale_comparison.csv,byte-identical
+coverage/coverage_estimates.csv,byte-identical
+coverage/coverage_roster.csv,byte-identical
+contrasts/poultry_for_red.csv,byte-identical
+contrasts/within_poultry_for_red.csv,byte-identical
+historical_plot_audit/alcohol_country_means.csv,numerically equivalent
+historical_plot_audit/cereal_component_comparison.csv,byte-identical
+historical_plot_audit/hypertension_source_matches.csv,byte-identical
+historical_plot_audit/named_example_coverage.csv,numerically equivalent
+historical_plot_audit/plot_year_values.csv,byte-identical
+food_release_comparison/between_countries.csv,byte-identical
+food_release_comparison/eligibility.csv,byte-identical
+food_release_comparison/exposure_differences.csv,byte-identical
+food_release_comparison/within_countries.csv,byte-identical
+grading_1990_2014/pair_specific_eligibility.csv,byte-identical
+grading_1990_2014/panel_1985_2014.csv,byte-identical
+grading_1990_2014/third_star_grades.csv,byte-identical
+grading_1990_2014/timing_sensitivity.csv,byte-identical
+grading_1990_2014/unrestricted_lag_profile.csv,byte-identical
+period_search/all_tests.csv,byte-identical
+period_search/three_star_hits.csv,byte-identical
+period_search/window_counts.csv,byte-identical
+fixed_lags/estimates.csv,byte-identical
+fixed_lags/third_star_benchmark.csv,byte-identical
+fixed_lags/third_star_grades.csv,byte-identical
+fixed_lags/unrestricted_lag_profile.csv,byte-identical
+gdp_screen/screen_country_omissions.csv,byte-identical
+gdp_screen/screen_transitions.csv,byte-identical
+region_comparison/estimates.csv,byte-identical
+simulation/screen.csv,byte-identical
+panel_benchmark/replicate_counts.csv,byte-identical
+panel_benchmark/summary.csv,byte-identical
+food_definitions/estimates.csv,byte-identical
+food_definitions/membership.csv,byte-identical
+food_definitions/red_meat_country_means.csv,byte-identical
+food_definitions/red_meat_plot_comparison.csv,byte-identical
+food_definitions/red_meat_source_rows.csv,byte-identical
+source_checks/WHO_diabetes_country_year_check.csv,byte-identical
+source_checks/annual_covariate_reconciliation.csv,byte-identical
+source_checks/average-non-hdl-cholesterol-levels_comparison.csv,numerically equivalent
+source_checks/daily-per-capita-caloric-supply_comparison.csv,numerically equivalent
+source_checks/diabetes-prevalence-who-gho_comparison.csv,numerically equivalent
+source_checks/hypertension-adults-30-79_comparison.csv,numerically equivalent
+source_checks/schooling_year_comparison.csv,byte-identical

@@ -1,5 +1,11 @@
 # Verification record
 
+## Public data release, 25 November 2026
+
+Version 1.1.0 adds a numerical-only reproduction mode and the public data archive. A fresh reconstruction using that archive reproduced all 116 numerical tables: 108 were byte-identical and eight agreed within the stated tolerances. All four analysis-metadata comparisons passed. The public reference metadata record the distributed files: two non-computational source documents are excluded, and machine-specific workbook save-location hints are removed. All worksheet contents, numerical inputs and estimates were unchanged. All observations exported from the eight historical Prism projects were checked for exact equality with their original series. The six independent statistical tests also passed.
+
+The file-level numerical report is `docs/public_data_reproduction_report.csv`. The earlier full-artwork verification below remains a separate check of the licensed submission archive; no public-artwork reproduction is claimed.
+
 The publication preparation check was run on 24 November 2026 with Python 3.12 and the pinned packages in `requirements.txt`.
 
 ## Statistical tests

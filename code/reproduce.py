@@ -46,7 +46,7 @@ RESULTS = (
 )
 
 
-def compare(root, output):
+def compare(root, output, *, analysis_only=False):
     """Check complete output coverage, table contents and decoded figure pixels."""
     checks = []
     for directory in RESULTS:
@@ -110,6 +110,10 @@ def compare(root, output):
                     ),
                 }
             )
+    if analysis_only:
+        pd.DataFrame(checks).to_csv(output / "reproduction_report.csv", index=False)
+        print(pd.DataFrame(checks).comparison.value_counts().to_string(), flush=True)
+        return
     expected = {
         p.name for p in (root / "figures").iterdir() if p.suffix in (".pdf", ".png")
     }
@@ -149,7 +153,7 @@ def compare(root, output):
         print(f"{value}: {n}", flush=True)
 
 
-def run(root, output):
+def run(root, output, *, analysis_only=False):
     if output.exists():
         raise SystemExit(f"Choose a new output directory. Already exists: {output}")
     if (
@@ -175,6 +179,8 @@ def run(root, output):
             raise ValueError(f"Archive file failed SHA-256 verification: {key}")
     output.mkdir(parents=True)
     for directory in INPUTS:
+        if analysis_only and directory in ("artwork_sources", "publication_artwork"):
+            continue
         shutil.copytree(root / directory, output / directory)
     (output / "comparison").mkdir()
     env = os.environ.copy()
@@ -263,6 +269,12 @@ def run(root, output):
         "method_artwork",
         "assemble_prism_figures",
     ):
+        if analysis_only and script in (
+            "style_figures",
+            "method_artwork",
+            "assemble_prism_figures",
+        ):
+            continue
         step(script)
     step(
         "verify_annual",
@@ -291,7 +303,7 @@ def run(root, output):
         "verify_third_star",
     ):
         step(script)
-    compare(root, output)
+    compare(root, output, analysis_only=analysis_only)
 
 
 if __name__ == "__main__":
@@ -308,5 +320,10 @@ if __name__ == "__main__":
         default=Path(__file__).resolve().parent.parent,
         help="Extracted study archive containing frozen inputs and reference outputs.",
     )
+    parser.add_argument(
+        "--analysis-only",
+        action="store_true",
+        help="Rebuild and compare all numerical outputs without licensed figure artwork.",
+    )
     args = parser.parse_args()
-    run(args.archive.resolve(), args.output.resolve())
+    run(args.archive.resolve(), args.output.resolve(), analysis_only=args.analysis_only)

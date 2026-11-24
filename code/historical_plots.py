@@ -31,6 +31,17 @@ FOOD_CODES = {
 
 
 def series_by_country(path):
+    csv_path = path.with_suffix(".csv")
+    if csv_path.exists():
+        data = pd.read_csv(csv_path, float_precision="round_trip")
+        if data.duplicated(["Code", "variable", "Year"]).any():
+            raise ValueError(f"Duplicate plotted observations: {csv_path}")
+        return {
+            (code, name): values.set_index("Year")["value"]
+            .rename(None)
+            .rename_axis(None)
+            for (code, name), values in data.groupby(["Code", "variable"], sort=False)
+        }
     found = {}
     for table in ET.parse(path).findall("Table"):
         code = "".join(table.find("Title").itertext()).strip().split("-")[0]

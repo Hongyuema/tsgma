@@ -1,0 +1,25 @@
+# Analysis map
+
+The pipeline retains separate outputs for the submitted country means, source-reconciled means, common-window models and primary temporal grading. They answer different questions and should not be substituted for one another.
+
+| Stage | Main scripts | Output |
+| --- | --- | --- |
+| Country means | `audit_analysis.py`, `recover_outcomes.py` | Crude and partial correlations, uncertainty, covariate sensitivity and source reconciliation |
+| Annual reconstruction | `reconstruct_annual.py` | Harmonized annual panel, variable definitions, country rosters and contemporaneous models |
+| Primary grading | `grade_extended_period.py`, `third_star.py` | All 48 grades for 1990–2014, eligibility records and lag profiles |
+| Observation periods | `search_periods.py`, `fixed_lags.py` | Period and lag sensitivity, including the complete exploratory search |
+| Covariates and dependence | `current_food_models.py`, `current_model_diagnostics.py`, `regional_years.py` | Joint food models, residual diagnostics and regional year effects |
+| Scale and composition | `paired_slopes.py`, `compare_scales.py`, `meat_contrast.py`, `within_meat_contrast.py` | Between/within comparisons and specified energy contrasts |
+| Simulation | `simulate_screen.py`, `panel_benchmark.py`, `third_star_benchmark.py` | Performance under explicitly defined generating mechanisms |
+| Verification | `verify_*.py` | Independent reconstructions of selected estimates and model diagnostics |
+| Graphics | `style_figures.py`, `method_artwork.py`, `assemble_prism_figures.py` | Computational figure exports and assembly of archived Prism panels |
+
+Run the pipeline through `code/reproduce.py`. Individual scripts use paths relative to the working analysis directory and have dependencies on earlier outputs.
+
+`third_star.fit` removes country effects, year effects and optional country-specific linear trends from a complete balanced panel. Its covariance correction includes the absorbed terms in the model rank. It should not be used on an unbalanced panel by silently dropping rows or filling missing values. The main pipeline establishes complete pair-specific samples before calling it.
+
+`third_star.directional_p` implements a conjunction criterion with a common-sign restriction. It is not Fisher's combination test, and it does not allow strong evidence for one component to compensate for weak evidence for the other. The sign restriction and Holm correction are both retained when assigning the third star.
+
+A window-specific grade depends on the years, lag definition and country sample used. The exploratory search evaluates all 48 pairs in every setting and reports the full search family. The historical 18-country trajectories are descriptive illustrations and do not determine eligibility or the third-star decision.
+
+The main Figure 2–4 estimates use the historical country-mean periods with reconciled outcome values. Their 158-country crude sample and 143-country GDP-adjusted sample differ from the 119–122 countries eligible for the primary temporal analysis. These denominators are intentional and are recorded with the estimates.

@@ -29,15 +29,15 @@ The tests compare the transformed panel estimator with an explicit dummy-variabl
 
 ## Reproduce the study
 
-Extract the accompanying `Data_and_Code_Archive.zip` supplied with the submission into a local directory. The archive contains the frozen source releases, eligibility records and reference outputs. It is a separate research-data supplement; neither the raw data nor third-party graphical assets are distributed in this code repository.
+Download and extract `data/tsgma-data-v1.1.0.zip`. It contains the frozen numerical inputs, eligibility records, all reference tables, a data dictionary, source attributions and a SHA-256 manifest. Version 1.1.0 of the data and code is archived together at [doi:10.5281/zenodo.24508075](https://doi.org/10.5281/zenodo.24508075).
 
 ```bash
-python code/reproduce.py \
-  --archive /path/to/NEXRES_revision_package \
+python code/reproduce.py --analysis-only \
+  --archive /path/to/tsgma-data-v1.1.0 \
   --output /path/to/tsgma-rebuild
 ```
 
-The output directory must not already exist. The command verifies the archive checksums, reconstructs the country means and annual panels, runs the analyses and simulations, and compares the regenerated results with the archived tables. The analysis runs offline after its dependencies and inputs have been obtained. Full figure assembly additionally uses the archived native Prism exports and Illustrator artboards; it does not rerun Prism itself.
+The output directory must not already exist. The command verifies the archive checksums, reconstructs the country means and annual panels, runs the analyses and simulations, and compares all 116 numerical tables and four metadata records with the archived results. The analysis runs offline after its dependencies and inputs have been obtained. Original figure artwork is excluded from the public data package. Full figure assembly remains available for users with the separately licensed submission archive: omit `--analysis-only` and point `--archive` to that archive. This stage uses archived Prism exports and Illustrator artboards; it does not rerun Prism itself.
 
 `reproduction_report.csv` records numerical and graphical comparisons. Numerical tables use absolute tolerance `1e-12` and relative tolerance `1e-9`, with separate checks of decisions at 0.05. Figure rendering can vary with fonts and graphics libraries; such differences are reported separately from numerical agreement.
 
@@ -62,6 +62,7 @@ The 1994–2004 cereals–diabetes result is exploratory. It passes the third-st
 | `examples/` | Reproducible synthetic panel example |
 | `tests/` | Independent numerical checks of the core estimator and grading rule |
 | `reference_results/` | Primary estimates reported with the study |
+| `data/` | Frozen numerical archive, data dictionary, attribution and component licences |
 | `docs/ANALYSIS.md` | Script map and interpretation of analytical stages |
 | `docs/DATA.md` | Input structure, provenance and third-party materials |
 | `docs/VALIDATION.md` | Scope and results of verification |

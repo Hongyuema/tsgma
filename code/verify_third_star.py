@@ -124,8 +124,8 @@ def verify(root, extended=False):
         prob = results["p" if name == "lag" else name + "_p"]
         npcheck(multipletests(prob, method="fdr_bh")[1], results[name + "_q"])
     pj = np.where(
-        results.adjusted_r * results.beta > 0,
-        np.maximum(results.adjusted_p, results.p),
+        (results.crude_r * results.adjusted_r > 0) & (results.adjusted_r * results.beta > 0),
+        np.maximum.reduce([results.crude_p, results.adjusted_p, results.p]),
         1,
     )
     order = np.argsort(pj)
@@ -135,11 +135,9 @@ def verify(root, extended=False):
     )
     npcheck(pj, results.directional_p)
     npcheck(adjusted, results.joint_Holm)
-    levels = np.where(
-        results.adjusted_q < 0.05,
-        2 + (adjusted < 0.05).astype(int),
-        (results.crude_q < 0.05).astype(int),
-    )
+    first = results.crude_q < 0.05
+    second = first & (results.adjusted_q < 0.05) & (results.crude_r * results.adjusted_r > 0)
+    levels = np.where(second, 2 + (adjusted < 0.05).astype(int), first.astype(int))
     np.testing.assert_array_equal(levels, results.stars)
     print(
         "Verified all 48 grades, 144 lag fits, 240 unrestricted lag coefficients and their intervals."

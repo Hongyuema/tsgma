@@ -58,20 +58,23 @@ def directional_p(sign1, p1, sign2, p2):
     return np.where(np.sign(sign1) == np.sign(sign2), np.maximum(p1, p2), 1.0)
 
 
-def grades(pcrude, padj, adjusted, plag, delayed):
+def grades(pcrude, padj, adjusted, plag, delayed, crude):
+    """Cumulative grades; multiplicity families contain every eligible pair.
+
+    Stage-specific BH screens retain all pairs. Promotion requires matching
+    nonzero signs. The third-star conjunction includes all three tests, with
+    Holm adjustment across the complete family before any screening.
+    """
     q1 = stats.false_discovery_control(pcrude)
     q2 = stats.false_discovery_control(padj)
-    pjoint = directional_p(adjusted, padj, delayed, plag)
+    same_between = np.asarray(crude) * np.asarray(adjusted) > 0
+    same_all = same_between & (np.asarray(adjusted) * np.asarray(delayed) > 0)
+    pjoint = np.where(same_all, np.maximum.reduce([pcrude, padj, plag]), 1.0)
     holm = multipletests(pjoint, method="holm")[1]
-    return (
-        q1,
-        q2,
-        pjoint,
-        holm,
-        np.select(
-            [(q2 < 0.05) & (holm < 0.05), q2 < 0.05, q1 < 0.05], [3, 2, 1], default=0
-        ),
-    )
+    first = q1 < 0.05
+    second = first & (q2 < 0.05) & same_between
+    stars = np.select([second & (holm < 0.05), second, first], [3, 2, 1], default=0)
+    return q1, q2, pjoint, holm, stars
 
 
 def run(root):
@@ -157,7 +160,7 @@ def run(root):
     assert len(frame) == 48
     for col, vals in zip(
         ["crude_q", "adjusted_q", "directional_p", "joint_Holm", "stars"],
-        grades(frame.crude_p, frame.adjusted_p, frame.adjusted_r, frame.p, frame.beta),
+        grades(frame.crude_p, frame.adjusted_p, frame.adjusted_r, frame.p, frame.beta, frame.crude_r),
     ):
         frame[col] = vals
     frame["lag_q"] = stats.false_discovery_control(frame.p)

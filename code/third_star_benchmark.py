@@ -85,7 +85,7 @@ def run(root):
             for i, (z, pinv, h, raw) in enumerate(designs):
                 xm = foods[i].mean(axis=1)
                 xc = xm - between @ np.linalg.lstsq(between, xm, rcond=None)[0]
-                _, p1 = assoc(xm, y, 0)
+                r1, p1 = assoc(xm, y, 0)
                 r2, p2 = assoc(xc, yc, 2)
                 beta = pinv @ annual
                 residual = (annual - z @ beta).reshape(g, t0, reps)
@@ -96,7 +96,7 @@ def run(root):
                     np.testing.assert_allclose(
                         [beta[0, 0], se[0]], [reference["beta"], reference["se"]]
                     )
-                measures.append(np.stack([p1, p2, r2, p3, beta[0]]))
+                measures.append(np.stack([p1, p2, r2, p3, beta[0], r1]))
         arr = np.stack(measures, axis=1)
         stars = np.array([grades(*arr[:, :, k])[-1] for k in range(reps)])
         target = np.arange(48) % 16 == np.arange(48) // 16

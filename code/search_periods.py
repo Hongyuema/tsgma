@@ -158,22 +158,14 @@ parts = []
 for _, a in df.groupby(groups):
     a = a.copy()
     assert len(a) == 48
-    q1 = stats.false_discovery_control(a.crude_p)
-    q2 = stats.false_discovery_control(a.adjusted_p)
-    joint = np.where(a.adjusted_r * a.beta > 0, np.maximum(a.adjusted_p, a.p), 1.0)
-    adj = holm(joint)
+    q1, q2, joint, adj, stars = grades(
+        a.crude_p, a.adjusted_p, a.adjusted_r, a.p, a.beta, a.crude_r
+    )
+    a["crude_q"] = q1
     a["adjusted_q"] = q2
     a["conjunction_p"] = joint
     a["holm_48"] = adj
-    a["stars"] = np.select(
-        [(q2 < 0.05) & (adj < 0.05), q2 < 0.05, q1 < 0.05], [3, 2, 1], default=0
-    )
-    if (a.stars == 3).any():
-        q1b, q2b, jb, hb, sb = grades(
-            a.crude_p, a.adjusted_p, a.adjusted_r, a.p, a.beta
-        )
-        np.testing.assert_allclose(hb, adj)
-        np.testing.assert_array_equal(sb, a.stars)
+    a["stars"] = stars
     parts.append(a)
 df = pd.concat(parts, ignore_index=True)
 assert len(df) == 45696

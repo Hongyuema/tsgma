@@ -50,40 +50,13 @@ label(
 label(
     im,
     (0.647, 0.063, 0.986, 0.578),
-    "Third-star decision\n\nAdjusted and delayed\nassociations in the same\ndirection\n\n0 of 48 pairs met the rule",
+    "Third-star decision\n\nCrude, adjusted and delayed\nassociations in the same\ndirection\n\n0 of 48 pairs met the rule",
     11,
 )
 snapshot(im, "Graphical_abstract")
-im = Image.open(assets / "flow.png").convert("RGB")
-label(
-    im,
-    (0.252, 0.477, 0.991, 0.96),
-    "All pairs enter all three analyses\n\n1 star: crude screen       2 stars: adjusted screen\n\n3 stars: adjusted and delayed estimates agree in sign\nand pass the 48-pair Holm conjunction test.",
-    11,
-)
-label(im, (0.77, 0.425, 0.995, 0.48), "Current + past 1–5 years", 9)
-# The original triage branches have gone. Reconnect the processing arrow and
-# turn the remaining arrows into stage-to-stage links at header height.
-d = ImageDraw.Draw(im)
+from cumulative_workflow import draw as draw_cumulative_workflow
 
-
-def rect(x0, y0, x1, y1, color):
-    d.rectangle(
-        tuple(
-            round(v * (im.width if j % 2 == 0 else im.height))
-            for j, v in enumerate((x0, y0, x1, y1))
-        ),
-        fill=color,
-    )
-
-
-rect(0.250, 0.46, 0.273, 0.874, "white")
-rect(0.256, 0.123, 0.260, 0.869, "#aad5c0")
-rect(0.209, 0.867, 0.260, 0.871, "#aad5c0")
-for x, col in [(0.495, "#df9ccd"), (0.753, "#ed9b91")]:
-    rect(x - 0.004, 0.13, x + 0.006, 0.48, "white")
-    rect(x - 0.042, 0.121, x, 0.125, col)
-snapshot(im, "Figure_1")
+draw_cumulative_workflow(assets / "flow.png", out / "Figure_1")
 im = Image.open(assets / "Original_network.png").convert("RGB")
 snapshot(im, "Figure_5")
 copyfile(assets / "Original_network.png", out / "Figure_5.png")

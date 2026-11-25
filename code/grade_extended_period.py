@@ -161,7 +161,7 @@ def run(root):
         assert len(df) == 48
         for col, v in zip(
             ["crude_q", "adjusted_q", "directional_p", "joint_Holm", "stars"],
-            grades(df.crude_p, df.adjusted_p, df.adjusted_r, df.p, df.beta),
+            grades(df.crude_p, df.adjusted_p, df.adjusted_r, df.p, df.beta, df.crude_r),
         ):
             df[col] = v
         df["lag_q"] = stats.false_discovery_control(df.p)

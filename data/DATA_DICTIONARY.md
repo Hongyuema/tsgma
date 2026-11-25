@@ -35,3 +35,5 @@ Each `historical_plot_inputs/*.csv` contains `Code`, `variable`, `Year` and `val
 ## Reading the complete outputs
 
 The directory and variable names are retained to keep the public archive compatible with the validated analysis. The code and `docs/ANALYSIS.md` in the repository map each script to its inputs and outputs. Source metadata describe definitions and original processing; historical metadata may describe the evidence available at an earlier analytical stage. The primary specification and its interpretation are stated in the archive README.
+
+Cumulative grading requires crude support before promotion. Two stars require both country-mean screens and matching directions. Three stars additionally require a matching delayed estimate and the Holm-adjusted maximum of all three component P values. A zero grade can therefore coexist with an adjusted association below the BH threshold.

@@ -1,16 +1,20 @@
-# TSGMA research data, version 1.1.0
+# TSGMA research data, version 1.2.0
 
 Hongyue Ma. 2026. TSGMA: data and code for macro association analysis.
 
 This archive contains the frozen numerical inputs and reference results for the dietary application of Three-star Global Macro Association analysis. It supports reproduction of all numerical analyses, including eligibility assessment, country-mean associations, temporal models, sensitivity analyses, simulations and the complete period search. No participant-level records are included.
 
+Version-specific data and code deposit: doi:10.5281/zenodo.24527413.
+
+The framework uses cumulative grading. This example evaluates all 48 pairs at every stage so that findings excluded by sequential screening remain visible. The supplied code is the complete reference implementation, not an optimized early-stopping implementation.
+
 ## Reproduction
 
-Use the code in Hongyuema/tsgma, version 1.1.0, and the pinned Python environment described in its README. From the code repository:
+Use the code in Hongyuema/tsgma, version 1.2.0, and the pinned Python environment described in its README. From the code repository:
 
 ```bash
 python code/reproduce.py --analysis-only \
-  --archive /path/to/tsgma-data-v1.1.0 \
+  --archive /path/to/tsgma-data-v1.2.0 \
   --output /path/to/new-reconstruction
 ```
 
@@ -32,7 +36,7 @@ The reference results are comparison targets, not substitutes for executing the 
 
 ## Interpretation
 
-The primary outcome period is 1990–2014, with exposure history from 1985. Pair-specific completeness yields 119–122 countries or regions. Of 48 pairs, 23 receive no star, 12 receive one star and 13 receive two stars; none receives three stars. The cereals–diabetes result for 1994–2004 is an exploratory illustration of observation-period dependence. It satisfies the within-setting rule but not correction over the full search.
+The primary outcome period is 1990–2014, with exposure history from 1985. Pair-specific completeness yields 119–122 countries or regions. Of 48 pairs, 29 receive no star, 12 receive one star and seven receive two stars; none receives three stars. The cereals–diabetes result for 1994–2004 is an exploratory illustration of observation-period dependence. It satisfies the within-setting rule but not correction over the full search.
 
 Dietary measures represent food availability, not measured individual intake. The health series are population estimates. Associations and grades do not establish individual effects, causal direction or the validity of an intervention.
 

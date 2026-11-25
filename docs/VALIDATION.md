@@ -1,3 +1,13 @@
+# Cumulative grading verification
+
+Version 1.2.0 retains the frozen inputs, analytical samples and model specifications. Eight independent tests passed, including checks that adjustment-only support cannot bypass the crude stage, direction reversals prevent promotion, all three P values enter the conjunction, and multiplicity correction uses the full family. Independent explicit-design calculations verified the primary and sensitivity panel estimates and grades.
+
+The primary analysis, four timing comparisons, the earlier harmonized-window grading, all 952 exploratory settings and the 200-replicate-per-scenario grading benchmark were rerun. The primary counts are 29, 12, 7 and 0 for grades zero through three. The exploratory search still contains 17 within-setting third-star findings, all for cereals and diabetes, with none surviving correction across the full search. The current-and-delayed simulation assigns three stars in 550 of 600 designated-pair evaluations and in none of the other 9,000 evaluations.
+
+A fresh full numerical reconstruction passed all 116 table comparisons (108 byte-identical and eight numerically equivalent within rtol=1e-9 and atol=1e-12) and all four metadata comparisons. The file-level report is `docs/cumulative_reproduction_report.csv`. These checks establish computational agreement, not general statistical validity.
+
+The following sections document earlier verification of version 1.1.0, not the cumulative grading update.
+
 # Verification record
 
 ## Public data release, 25 November 2026

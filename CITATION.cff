@@ -5,9 +5,7 @@ title: "TSGMA research code"
 authors:
   - family-names: Ma
     given-names: Hongyue
-version: 1.1.0
-date-released: 2026-11-25
-doi: 10.5281/zenodo.24508075
+version: 1.2.0
 license: MIT
 abstract: >-
   Research code for Three-star Global Macro Association analysis, combining
@@ -16,3 +14,5 @@ abstract: >-
   sensitivity analyses, simulations and numerical verification.
 repository-code: "https://github.com/Hongyuema/tsgma"
 url: "https://github.com/Hongyuema/tsgma"
+date-released: "2026-11-25"
+doi: "10.5281/zenodo.24527413"

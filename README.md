@@ -29,11 +29,11 @@ The tests compare the transformed panel estimator with an explicit dummy-variabl
 
 ## Reproduce the study
 
-Download and extract `data/tsgma-data-v1.1.0.zip`. It contains the frozen numerical inputs, eligibility records, all reference tables, a data dictionary, source attributions and a SHA-256 manifest. Version 1.1.0 of the data and code is archived together at [doi:10.5281/zenodo.24508075](https://doi.org/10.5281/zenodo.24508075).
+Extract `data/tsgma-data-v1.2.0.zip`. It contains the frozen numerical inputs, eligibility records, all reference tables, a data dictionary, source attributions and a SHA-256 manifest. Version 1.2.0 implements cumulative grading and accompanies the revised manuscript. The version-specific data and code deposit is doi:10.5281/zenodo.24527413. Version 1.1.0 remains available as a historical release; its grading rule and reference results differ from this version.
 
 ```bash
 python code/reproduce.py --analysis-only \
-  --archive /path/to/tsgma-data-v1.1.0 \
+  --archive /path/to/tsgma-data-v1.2.0 \
   --output /path/to/tsgma-rebuild
 ```
 
@@ -43,6 +43,8 @@ The output directory must not already exist. The command verifies the archive ch
 
 ## Primary specification
 
+The conceptual workflow advances pairs sequentially to reduce the number requiring later analyses. This repository implements the complete evaluation used in the paper: every eligible pair is fitted at every stage, and grades are assigned afterwards using the cumulative criteria. It is not an optimized early-stopping implementation. The complete calculation exposes findings that a strictly sequential screen could miss. A future staged implementation requires an explicit multiplicity strategy; correcting only within the retained subset is not assumed to reproduce these full-family results.
+
 - Outcome period: 1990–2014.
 - Exposure history: 1985–2014; delayed exposure is the preceding five-year mean.
 - Eligibility: complete records assessed separately for each of 48 dietary–outcome pairs, yielding 119–122 countries or regions.
@@ -50,7 +52,9 @@ The output directory must not already exist. The command verifies the archive ch
 - Temporal adjustment: current exposure, current and preceding five-year means of log GDP and total energy, country effects, year effects, and country-specific linear trends.
 - Inference: country-clustered standard errors with finite-sample correction and `G − 1` degrees of freedom.
 
-The first star requires crude BH-adjusted `q < 0.05`; the second requires adjusted `q < 0.05`, irrespective of the crude result. For the third star, the adjusted and delayed estimates must have the same sign, and the larger of their unadjusted two-sided P values must pass Holm correction across all 48 pairs. The primary analysis yields 23 zero-star, 12 one-star and 13 two-star pairs, with no three-star pair. The complete primary estimates are in `reference_results/primary_grades.csv`.
+Stars accumulate across the three stages. One star requires crude BH-adjusted `q < 0.05`. Two stars require both crude and adjusted `q < 0.05`, with matching signs. A third star additionally requires the delayed estimate to have that sign and the largest of all three unadjusted two-sided P values to pass Holm correction across all 48 pairs. Sign disagreement sets the conjunction P to 1. Testing families retain every pair before screening. A pair supported only after adjustment stays at zero stars but remains in the results. Stage-specific BH control does not establish an FDR bound for the combined grade classification.
+
+The primary analysis yields 29 zero-star, 12 one-star and seven two-star pairs, with no three-star pair. Six pairs pass only the adjusted screen. The complete primary estimates are in `reference_results/primary_grades.csv`.
 
 The 1994–2004 cereals–diabetes result is exploratory. It passes the third-star rule within that setting but not the correction over all 952 period–lag settings. It is not a replacement for the full-period analysis.
 

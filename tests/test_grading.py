@@ -26,26 +26,47 @@ class GradingTests(unittest.TestCase):
             [0.3, 0.2],
         )
 
-    def test_all_four_grades_and_adjustment_only_support(self):
+    def test_cumulative_grades_keep_adjustment_only_pairs_at_zero(self):
         crude = np.ones(48)
         adjusted = np.ones(48)
         delayed = np.ones(48)
-        crude[[0, 2]] = 1e-9
-        adjusted[[0, 1]] = 1e-9
-        delayed[0] = 1e-9
-        *_, stars = grades(crude, adjusted, np.ones(48), delayed, np.ones(48))
-        np.testing.assert_array_equal(stars[:4], [3, 2, 1, 0])
-        self.assertEqual(int(np.sum(stars[4:])), 0)
+        crude[[0, 1, 2]] = 1e-9
+        adjusted[[0, 1, 3]] = 1e-9
+        delayed[[0, 3]] = 1e-9
+        *_, stars = grades(crude, adjusted, np.ones(48), delayed,
+                           np.ones(48), np.ones(48))
+        np.testing.assert_array_equal(stars[:5], [3, 2, 1, 0, 0])
 
-    def test_holm_controls_the_whole_family(self):
+    def test_direction_reversal_prevents_promotion(self):
+        p = np.full(48, 1e-9)
+        crude_sign = np.ones(48)
+        adjusted_sign = np.ones(48)
+        delayed_sign = np.ones(48)
+        adjusted_sign[0] = -1
+        delayed_sign[1] = -1
+        _, _, joint, _, stars = grades(p, p, adjusted_sign, p,
+                                       delayed_sign, crude_sign)
+        np.testing.assert_array_equal(stars[:3], [1, 2, 3])
+        np.testing.assert_array_equal(joint[:2], [1, 1])
+
+    def test_conjunction_includes_crude_evidence(self):
+        p1 = np.full(48, 0.03)
+        p2 = np.full(48, 1e-9)
+        p3 = np.full(48, 1e-9)
+        _, _, joint, holm, stars = grades(p1, p2, np.ones(48), p3,
+                                         np.ones(48), np.ones(48))
+        np.testing.assert_allclose(joint, 0.03)
+        np.testing.assert_allclose(holm, 1)
+        np.testing.assert_array_equal(stars, np.full(48, 2))
+
+    def test_holm_controls_the_whole_family_before_screening(self):
         crude = np.ones(48)
         adjusted = np.ones(48)
         delayed = np.ones(48)
-        adjusted[0] = 1e-6
+        crude[0] = adjusted[0] = 1e-6
         delayed[0] = 0.002
-        _, _, _, holm, stars = grades(
-            crude, adjusted, np.ones(48), delayed, np.ones(48)
-        )
+        _, _, _, holm, stars = grades(crude, adjusted, np.ones(48),
+                                      delayed, np.ones(48), np.ones(48))
         self.assertAlmostEqual(holm[0], 0.096)
         self.assertEqual(stars[0], 2)
 
